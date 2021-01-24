@@ -3,6 +3,7 @@ package io.renren.modules.sys.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import io.renren.common.xss.XssHttpServletRequestWrapper;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import io.renren.modules.sys.service.ArticleAuthorService;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -64,6 +66,18 @@ public class ArticleAuthorController {
 
         return R.ok();
     }
+
+    /**
+     * 处理富文本数据
+     */
+    @RequestMapping("/save/content")
+    @RequiresPermissions("sys:articleauthor:save")
+    public R data(HttpServletRequest request) {
+        articleAuthorService.saveContent(request);
+
+        return R.ok();
+    }
+
 
     /**
      * 修改
