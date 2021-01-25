@@ -35,12 +35,17 @@ public class ArticleAuthorServiceImpl extends ServiceImpl<ArticleAuthorDao, Arti
         // 富文本数据
         String content = orgRequest.getParameter("content");
         String classify = orgRequest.getParameter("classify");
+        String id = orgRequest.getParameter("id");
 
         ArticleAuthorEntity entity = new ArticleAuthorEntity();
         entity.setContent(content);
         entity.setClassify(classify);
 
-        save(entity);
+        if (id != null) {
+            entity.setId(Long.valueOf(id));
+        }
+
+        saveOrUpdate(entity);
     }
 
 }

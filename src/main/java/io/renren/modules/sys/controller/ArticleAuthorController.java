@@ -68,7 +68,7 @@ public class ArticleAuthorController {
     }
 
     /**
-     * 处理富文本数据
+     * 保存富文本数据
      */
     @RequestMapping("/save/content")
     @RequiresPermissions("sys:articleauthor:save")
