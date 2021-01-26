@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.Map;
 
 import io.renren.common.xss.XssHttpServletRequestWrapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/sys/articleauthor")
+@Api("文章相关接口")
 public class ArticleAuthorController {
     @Autowired
     private ArticleAuthorService articleAuthorService;
@@ -36,7 +41,8 @@ public class ArticleAuthorController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
+    @ApiOperation("文章列表")
     @RequiresPermissions("sys:articleauthor:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = articleAuthorService.queryPage(params);
@@ -48,7 +54,8 @@ public class ArticleAuthorController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
+    @ApiOperation("文章信息")
     @RequiresPermissions("sys:articleauthor:info")
     public R info(@PathVariable("id") Long id){
 		ArticleAuthorEntity articleAuthor = articleAuthorService.getById(id);
@@ -59,7 +66,8 @@ public class ArticleAuthorController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
+    @ApiOperation("文章用户")
     @RequiresPermissions("sys:articleauthor:save")
     public R save(@RequestBody ArticleAuthorEntity articleAuthor){
 		articleAuthorService.save(articleAuthor);
@@ -70,7 +78,8 @@ public class ArticleAuthorController {
     /**
      * 保存富文本数据
      */
-    @RequestMapping("/save/content")
+    @PostMapping("/save/content")
+    @ApiOperation("保存富文本数据")
     @RequiresPermissions("sys:articleauthor:save")
     public R data(HttpServletRequest request) {
         articleAuthorService.saveContent(request);
@@ -82,7 +91,8 @@ public class ArticleAuthorController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
+    @ApiOperation("修改文章信息")
     @RequiresPermissions("sys:articleauthor:update")
     public R update(@RequestBody ArticleAuthorEntity articleAuthor){
 		articleAuthorService.updateById(articleAuthor);
@@ -93,7 +103,8 @@ public class ArticleAuthorController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
+    @ApiOperation("删除文章")
     @RequiresPermissions("sys:articleauthor:delete")
     public R delete(@RequestBody Long[] ids){
 		articleAuthorService.removeByIds(Arrays.asList(ids));
