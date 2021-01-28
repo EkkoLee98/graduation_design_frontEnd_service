@@ -23,6 +23,10 @@ import java.util.Map;
  */
 public class Query<T> {
 
+    public static final String STATUS_ACTIVED = "1";
+    public static final String STATUS_DELECTED = "0";
+    public static final String STATUS = "status";
+
     public IPage<T> getPage(Map<String, Object> params) {
         return this.getPage(params, null, false);
     }
