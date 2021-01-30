@@ -18,9 +18,12 @@ import io.renren.common.validator.group.AddGroup;
 import io.renren.common.validator.group.UpdateGroup;
 import io.renren.modules.sys.entity.SysUserEntity;
 import io.renren.modules.sys.form.PasswordForm;
+import io.renren.modules.sys.form.SysRegisterForm;
+import io.renren.modules.sys.service.SysCaptchaService;
 import io.renren.modules.sys.service.SysUserRoleService;
 import io.renren.modules.sys.service.SysUserService;
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.shiro.authz.annotation.RequiresGuest;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +44,54 @@ public class SysUserController extends AbstractController {
 	private SysUserService sysUserService;
 	@Autowired
 	private SysUserRoleService sysUserRoleService;
+	@Autowired
+	private SysCaptchaService sysCaptchaService;
 
+
+	/**
+	 * 注册新用户
+	 * @return
+	 */
+	@RequiresGuest
+	@PostMapping("/register")
+	public R register(@RequestBody SysRegisterForm form) {
+		boolean captcha = sysCaptchaService.validate(form.getUuid(), form.getCaptcha());
+		if(!captcha){
+			return R.error("验证码不正确");
+		}
+
+		//用户信息
+		SysUserEntity user = sysUserService.queryByUserName(form.getUsername());
+
+		//账号存在
+		if(user != null) {
+			return R.error("帐号已经存在!");
+		}
+
+		sysUserService.registerUser(form.getUsername(), form.getPassword(), form.getEmail());
+
+		return R.ok();
+	}
+
+
+	/**
+	 * 激活用户。用户邮箱点击激活之后的操作
+	 *
+	 * @return 成功则返回跳转连接，失败则提示请联系管理员
+	 */
+	@ResponseBody
+	@GetMapping(value = "/active/{username}", produces = {"text/plain;charset=utf-8", "text/html;charset=utf-8"})
+	public R activeUser(@PathVariable("username") String username) {
+		SysUserEntity user = sysUserService.queryByUserName(username);
+		if (user != null) {
+			// 调用service层激活用户
+			sysUserService.activeUser(user);
+			// 注册成功返回登录页面
+			return R.ok("激活成功");
+		} else {
+			return R.error("激活失败，请联系管理员");
+		}
+	}
 
 	/**
 	 * 所有用户列表

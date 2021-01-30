@@ -23,6 +23,8 @@ import java.util.Map;
  */
 public interface SysUserService extends IService<SysUserEntity> {
 
+	void registerUser(String username, String password, String email);
+
 	PageUtils queryPage(Map<String, Object> params);
 
 	/**
@@ -63,4 +65,6 @@ public interface SysUserService extends IService<SysUserEntity> {
 	 * @param newPassword  新密码
 	 */
 	boolean updatePassword(Long userId, String password, String newPassword);
+
+	void activeUser(SysUserEntity user);
 }
