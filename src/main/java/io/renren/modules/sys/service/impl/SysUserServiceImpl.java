@@ -183,7 +183,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 
         try {
-            messageHelper.setFrom("779732613@qq.com");
+            messageHelper.setFrom("435867317@qq.com");
             messageHelper.setTo(email);
 
             messageHelper.setSubject("注册激活");
