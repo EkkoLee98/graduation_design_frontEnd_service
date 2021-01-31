@@ -13,6 +13,7 @@ import io.renren.modules.sys.service.ArticleAuthorService;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 
@@ -25,6 +26,13 @@ public class ArticleAuthorServiceImpl extends ServiceImpl<ArticleAuthorDao, Arti
                 new Query<ArticleAuthorEntity>().getPage(params),
                 new QueryWrapper<ArticleAuthorEntity>()
         );
+
+        List<ArticleAuthorEntity> records = page.getRecords();
+        for (ArticleAuthorEntity record : records) {
+            String content = record.getContent();
+            content = content.replaceAll("\"", "&quot;");
+            record.setContent(content);
+        }
 
         return new PageUtils(page);
     }
