@@ -1,7 +1,6 @@
 package io.renren.modules.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.utils.PageUtils;
@@ -29,8 +28,10 @@ public class ArticleAuthorServiceImpl extends ServiceImpl<ArticleAuthorDao, Arti
 
         List<ArticleAuthorEntity> records = page.getRecords();
         for (ArticleAuthorEntity record : records) {
+
+
             String content = record.getContent();
-            content = content.replaceAll("\"", "&quot;");
+            content = content.replaceAll("\"", "\\\"");
             record.setContent(content);
         }
 
