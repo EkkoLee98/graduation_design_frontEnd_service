@@ -1,8 +1,9 @@
-package io.renren.modules.sys.entity;
+package io.renren.modules.arct.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.math.BigDecimal;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
@@ -10,31 +11,31 @@ import lombok.Data;
 /**
  * 
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2021-01-20 15:54:46
+ * @author zes
+ * @email 779732613@qq.com
+ * @date 2021-02-01 01:56:04
  */
 @Data
-@TableName("author")
-public class AuthorEntity implements Serializable {
+@TableName("goods")
+public class GoodsEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 
 	 */
 	@TableId
-	private Long id;
+	private Integer goodId;
 	/**
 	 * 
 	 */
-	private String authorName;
+	private String goodName;
 	/**
 	 * 
 	 */
-	private String avatar;
+	private BigDecimal goodPrice;
 	/**
 	 * 
 	 */
-	private Integer status;
+	private String goodImg;
 
 }

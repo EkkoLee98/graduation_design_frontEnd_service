@@ -1,4 +1,4 @@
-package io.renren.modules.sys.entity;
+package io.renren.modules.arct.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -10,13 +10,13 @@ import lombok.Data;
 /**
  * 
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2021-01-20 15:54:46
+ * @author zes
+ * @email 779732613@qq.com
+ * @date 2021-02-01 01:56:04
  */
 @Data
-@TableName("article_author")
-public class ArticleAuthorEntity implements Serializable {
+@TableName("article")
+public class ArticleEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -39,6 +39,30 @@ public class ArticleAuthorEntity implements Serializable {
 	/**
 	 * 
 	 */
+	private String content;
+	/**
+	 * 
+	 */
+	private String thumbsUpCount;
+	/**
+	 * 
+	 */
+	private String title;
+	/**
+	 * 
+	 */
+	private String mode;
+	/**
+	 * 
+	 */
+	private Date createTime;
+	/**
+	 * 
+	 */
+	private String comments;
+	/**
+	 * 
+	 */
 	private String collectionCount;
 	/**
 	 * 
@@ -47,6 +71,6 @@ public class ArticleAuthorEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private String content;
+	private String cover;
 
 }

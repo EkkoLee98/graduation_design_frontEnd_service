@@ -1,15 +1,15 @@
-package io.renren.modules.sys.dao;
+package io.renren.modules.arct.dao;
 
-import io.renren.modules.sys.entity.AuthorEntity;
+import io.renren.modules.arct.entity.AuthorEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2021-01-20 15:54:46
+ * @author zes
+ * @email 779732613@qq.com
+ * @date 2021-02-01 01:56:04
  */
 @Mapper
 public interface AuthorDao extends BaseMapper<AuthorEntity> {

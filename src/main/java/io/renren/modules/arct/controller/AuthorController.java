@@ -1,22 +1,16 @@
-package io.renren.modules.sys.controller;
+package io.renren.modules.arct.controller;
 
 import java.util.Arrays;
 import java.util.Map;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import io.renren.modules.sys.entity.AuthorEntity;
-import io.renren.modules.sys.service.AuthorService;
+import io.renren.modules.arct.entity.AuthorEntity;
+import io.renren.modules.arct.service.AuthorService;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 
@@ -25,13 +19,13 @@ import io.renren.common.utils.R;
 /**
  * 
  *
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2021-01-20 15:54:46
+ * @author zes
+ * @email 779732613@qq.com
+ * @date 2021-02-01 01:56:04
  */
 @RestController
-@RequestMapping("/sys/author")
-@Api("用户相关接口")
+@Api(value = "")
+@RequestMapping("arct/author")
 public class AuthorController {
     @Autowired
     private AuthorService authorService;
@@ -40,8 +34,8 @@ public class AuthorController {
      * 列表
      */
     @GetMapping("/list")
-    @ApiOperation("用户列表")
-    @RequiresPermissions("sys:author:list")
+    @RequiresPermissions("arct:author:list")
+    @ApiOperation(value = "查询列表")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = authorService.queryPage(params);
 
@@ -50,11 +44,11 @@ public class AuthorController {
 
 
     /**
-     * 信息
+     * 根据id查询信息
      */
     @GetMapping("/info/{id}")
-    @ApiOperation("用户信息")
-    @RequiresPermissions("sys:author:info")
+    @RequiresPermissions("arct:author:info")
+    @ApiOperation(value = "根据id查询信息")
     public R info(@PathVariable("id") Long id){
 		AuthorEntity author = authorService.getById(id);
 
@@ -62,11 +56,11 @@ public class AuthorController {
     }
 
     /**
-     * 保存
+     * 新增记录
      */
     @PostMapping("/save")
-    @ApiOperation("新增用户")
-    @RequiresPermissions("sys:author:save")
+    @RequiresPermissions("arct:author:save")
+    @ApiOperation(value = "新增记录")
     public R save(@RequestBody AuthorEntity author){
 		authorService.save(author);
 
@@ -74,11 +68,11 @@ public class AuthorController {
     }
 
     /**
-     * 修改
+     * 根据id修改记录
      */
     @PostMapping("/update")
-    @ApiOperation("修改用户信息")
-    @RequiresPermissions("sys:author:update")
+    @RequiresPermissions("arct:author:update")
+    @ApiOperation(value = "根据id修改信息")
     public R update(@RequestBody AuthorEntity author){
 		authorService.updateById(author);
 
@@ -86,11 +80,11 @@ public class AuthorController {
     }
 
     /**
-     * 删除
+     * 根据id删除记录
      */
     @PostMapping("/delete")
-    @ApiOperation("删除用户")
-    @RequiresPermissions("sys:author:delete")
+    @RequiresPermissions("arct:author:delete")
+    @ApiOperation(value = "根据id删除记录(非逻辑删除，建议不使用)")
     public R delete(@RequestBody Long[] ids){
 		authorService.removeByIds(Arrays.asList(ids));
 

@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="io.renren.modules.sys.dao.ArticleAuthorDao">
+<mapper namespace="io.renren.modules.arct.dao.ArticleDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="io.renren.modules.sys.entity.ArticleAuthorEntity" id="articleAuthorMap">
+    <resultMap type="io.renren.modules.arct.entity.ArticleEntity" id="articleMap">
         <result property="id" column="id"/>
         <result property="authorId" column="author_id"/>
         <result property="browseCount" column="browse_count"/>
         <result property="classify" column="classify"/>
+        <result property="content" column="content"/>
+        <result property="thumbsUpCount" column="thumbs_up_count"/>
+        <result property="title" column="title"/>
+        <result property="mode" column="mode"/>
+        <result property="createTime" column="create_time"/>
+        <result property="comments" column="comments"/>
         <result property="collectionCount" column="collection_count"/>
         <result property="commentsCount" column="comments_count"/>
-        <result property="content" column="content"/>
+        <result property="cover" column="cover"/>
     </resultMap>
 
 

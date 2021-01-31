@@ -1,17 +1,17 @@
-package io.renren.modules.sys.service;
+package io.renren.modules.arct.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageUtils;
-import io.renren.modules.sys.entity.AuthorEntity;
+import io.renren.modules.arct.entity.AuthorEntity;
 
 import java.util.Map;
 
 /**
  * 
  *
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2021-01-20 15:54:46
+ * @author zes
+ * @email 779732613@qq.com
+ * @date 2021-02-01 01:56:04
  */
 public interface AuthorService extends IService<AuthorEntity> {
 
