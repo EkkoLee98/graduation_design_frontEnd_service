@@ -26,6 +26,7 @@ public class AuthorServiceImpl extends ServiceImpl<AuthorDao, AuthorEntity> impl
 
         IPage<AuthorEntity> page = this.page(
                 new Query<AuthorEntity>().getPage(params),
+//                new QueryWrapper<AuthorEntity>()
                 queryWrapper
         );
 

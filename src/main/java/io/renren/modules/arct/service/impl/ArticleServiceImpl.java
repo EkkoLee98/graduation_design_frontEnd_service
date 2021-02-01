@@ -26,6 +26,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
 
         IPage<ArticleEntity> page = this.page(
                 new Query<ArticleEntity>().getPage(params),
+//                new QueryWrapper<ArticleEntity>()
                 queryWrapper
         );
 

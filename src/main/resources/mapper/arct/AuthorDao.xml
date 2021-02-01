@@ -12,7 +12,7 @@
         <result property="articleIds" column="article_ids"/>
         <result property="articleLikesIds" column="article_likes_ids"/>
         <result property="authorLikesIds" column="author_likes_ids"/>
-        <result property="explain" column="explain"/>
+        <result property="motto" column="motto"/>
         <result property="fansCount" column="fans_count"/>
         <result property="followCount" column="follow_count"/>
         <result property="gender" column="gender"/>

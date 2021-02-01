@@ -51,7 +51,7 @@ public class AuthorEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private String explain;
+	private String motto;
 	/**
 	 * 
 	 */
