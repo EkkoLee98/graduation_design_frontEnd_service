@@ -1,5 +1,7 @@
 package io.renren.modules.arct.service.impl;
 
+import io.renren.modules.sys.entity.SysRoleEntity;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -18,15 +20,24 @@ public class ClassifyServiceImpl extends ServiceImpl<ClassifyDao, ClassifyEntity
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+        String classify = (String)params.get("classify");
 
-        QueryWrapper<ClassifyEntity> queryWrapper = new QueryWrapper<>();
-        if (Query.STATUS_ACTIVED.equals(params.get(Query.STATUS))) {
-            queryWrapper.eq("status", 1);
-        }
+//        QueryWrapper<ClassifyEntity> queryWrapper = new QueryWrapper<>();
+//        if (Query.STATUS_ACTIVED.equals(params.get(Query.STATUS))) {
+//            queryWrapper
+//                    .like(StringUtils.isNotBlank(classify),"classify", classify)
+//                    .eq("status", 1);
+//        }
+//
+//        IPage<ClassifyEntity> page = this.page(
+//                new Query<ClassifyEntity>().getPage(params),
+//                queryWrapper
+//        );
 
         IPage<ClassifyEntity> page = this.page(
                 new Query<ClassifyEntity>().getPage(params),
-                queryWrapper
+                new QueryWrapper<ClassifyEntity>()
+                        .like(StringUtils.isNotBlank(classify),"classify_Id", classify)
         );
 
 

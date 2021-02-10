@@ -10,19 +10,28 @@ package io.renren.modules.sys.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.utils.R;
+import io.renren.modules.arct.entity.AuthorEntity;
+import io.renren.modules.arct.service.AuthorService;
 import io.renren.modules.sys.dao.SysUserTokenDao;
 import io.renren.modules.sys.entity.SysUserTokenEntity;
 import io.renren.modules.sys.oauth2.TokenGenerator;
 import io.renren.modules.sys.service.SysUserTokenService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 
 
 @Service("sysUserTokenService")
 public class SysUserTokenServiceImpl extends ServiceImpl<SysUserTokenDao, SysUserTokenEntity> implements SysUserTokenService {
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	//12小时后过期
 	private final static int EXPIRE = 3600 * 12;
+
+	@Autowired
+	private AuthorService authorService;
 
 
 	@Override
@@ -54,8 +63,9 @@ public class SysUserTokenServiceImpl extends ServiceImpl<SysUserTokenDao, SysUse
 			//更新token
 			this.updateById(tokenEntity);
 		}
+		AuthorEntity authorEntity = authorService.getById(userId);
 
-		R r = R.ok().put("token", token).put("expire", EXPIRE);
+		R r = R.ok().put("token", token).put("expire", EXPIRE).put("author", authorEntity);
 
 		return r;
 	}

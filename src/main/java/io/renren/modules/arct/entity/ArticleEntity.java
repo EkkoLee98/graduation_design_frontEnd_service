@@ -1,11 +1,18 @@
 package io.renren.modules.arct.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * 
@@ -35,6 +42,7 @@ public class ArticleEntity implements Serializable {
 	/**
 	 * 
 	 */
+	@NotBlank(message="类型不能为空")
 	private String classify;
 	/**
 	 * 
@@ -59,18 +67,15 @@ public class ArticleEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private String comments;
-	/**
-	 * 
-	 */
 	private String collectionCount;
 	/**
 	 * 
 	 */
-	private String commentsCount;
-	/**
-	 * 
-	 */
 	private String cover;
+	/**
+	 *
+	 */
+	@TableField(exist = false)
+	private List<Object> comments;
 
 }

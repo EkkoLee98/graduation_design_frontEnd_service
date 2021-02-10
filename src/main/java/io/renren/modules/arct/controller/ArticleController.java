@@ -1,8 +1,14 @@
 package io.renren.modules.arct.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -11,9 +17,14 @@ import org.springframework.web.bind.annotation.*;
 
 import io.renren.modules.arct.entity.ArticleEntity;
 import io.renren.modules.arct.service.ArticleService;
+import io.renren.modules.arct.entity.CommentsEntity;
+import io.renren.modules.arct.service.CommentsService;
+import io.renren.modules.arct.service.ReplyService;
+import io.renren.modules.arct.entity.ReplyEntity;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -27,8 +38,13 @@ import io.renren.common.utils.R;
 @Api(value = "")
 @RequestMapping("arct/article")
 public class ArticleController {
+    private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private CommentsService commentsService;
+    @Autowired
+    private ReplyService replyService;
 
     /**
      * 列表
@@ -51,6 +67,16 @@ public class ArticleController {
     @ApiOperation(value = "根据id查询信息")
     public R info(@PathVariable("id") Long id){
 		ArticleEntity article = articleService.getById(id);
+//		CommentsEntity commentsEntity = commentsService
+        List<CommentsEntity> list = commentsService.list(new QueryWrapper<CommentsEntity>().eq("article_id", id));
+        for (CommentsEntity entity : list) {
+            Long cid = entity.getId();
+            List<ReplyEntity> reply_list = replyService.list(new QueryWrapper<ReplyEntity>().eq("comment_id", cid));
+            List<Object> reply_comments = new ArrayList<>(reply_list);
+            entity.setReplys(reply_comments);
+        }
+        List<Object> comments = new ArrayList<>(list);
+        article.setComments(comments);
 
         return R.ok().put("article", article);
     }
@@ -75,6 +101,17 @@ public class ArticleController {
     @ApiOperation(value = "根据id修改信息")
     public R update(@RequestBody ArticleEntity article){
 		articleService.updateById(article);
+
+        return R.ok();
+    }
+
+    /**
+     * 点赞、收藏文章或者关注作者
+     */
+    @PostMapping("/save/option")
+    @RequiresPermissions("arct:article:save")
+    public R data(HttpServletRequest request) {
+        articleService.saveOption(request);
 
         return R.ok();
     }

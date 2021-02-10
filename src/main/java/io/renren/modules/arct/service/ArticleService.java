@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageUtils;
 import io.renren.modules.arct.entity.ArticleEntity;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -16,5 +17,7 @@ import java.util.Map;
 public interface ArticleService extends IService<ArticleEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void saveOption(HttpServletRequest request);
 }
 

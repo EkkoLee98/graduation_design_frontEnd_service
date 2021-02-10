@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * 
  * 
@@ -23,6 +25,7 @@ public class ClassifyEntity implements Serializable {
 	 * 
 	 */
 	@TableId
+	@NotBlank(message="类型id不能为空")
 	private Integer classifyId;
 	/**
 	 * 

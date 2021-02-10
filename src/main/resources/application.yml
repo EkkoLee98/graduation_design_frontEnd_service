@@ -74,3 +74,5 @@ renren:
     # token有效时长，7天，单位秒
     expire: 604800
     header: token
+
+uploadimgpath: C:\Demo\bs\graduation_design_service\src\main\resources\static\images\

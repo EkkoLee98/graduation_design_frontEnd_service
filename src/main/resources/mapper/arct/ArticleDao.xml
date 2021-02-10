@@ -14,9 +14,7 @@
         <result property="title" column="title"/>
         <result property="mode" column="mode"/>
         <result property="createTime" column="create_time"/>
-        <result property="comments" column="comments"/>
         <result property="collectionCount" column="collection_count"/>
-        <result property="commentsCount" column="comments_count"/>
         <result property="cover" column="cover"/>
     </resultMap>
 
