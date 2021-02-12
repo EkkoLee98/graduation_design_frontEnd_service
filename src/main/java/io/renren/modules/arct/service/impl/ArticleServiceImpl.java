@@ -109,10 +109,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
 //        ArticleEntity entity = new ArticleEntity();
         if (type.equals("thumbsup")) {
             String count = articleEntity.getThumbsUpCount();
+            String integralCount = authorEntity.getIntegralCount();
             if (Integer.parseInt(status) == 1) {
                 int tmpCount = Integer.parseInt(count) + 1;
+                int tmpIntegral = Integer.parseInt(integralCount) + 10;
                 String saveCount = String.valueOf(tmpCount);
+                String saveIntegralCount = String.valueOf(tmpIntegral);
                 articleEntity.setThumbsUpCount(saveCount);
+                authorEntity.setIntegralCount(saveIntegralCount);
                 String strs = authorEntity.getThumpsUpArticleIds();
                 ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
                 if (!list.contains(id)) {
@@ -139,10 +143,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
 
         if (type.equals("like")) {
             String count = articleEntity.getCollectionCount();
+            String integralCount = authorEntity.getIntegralCount();
             if (Integer.parseInt(status) == 1) {
                 int tmpCount = Integer.parseInt(count) + 1;
+                int tmpIntegral = Integer.parseInt(integralCount) + 10;
                 String saveCount = String.valueOf(tmpCount);
+                String saveIntegralCount = String.valueOf(tmpIntegral);
                 articleEntity.setCollectionCount(saveCount);
+                authorEntity.setIntegralCount(saveIntegralCount);
                 String strs = authorEntity.getArticleLikesIds();
                 ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
                 if (!list.contains(id)) {

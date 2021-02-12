@@ -25,8 +25,10 @@ public class UploadController {
             String dirpath = this.dirPath;
             String fileName = FileUtils.saveSingleFile(dirpath,file);
             String url = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/renren-fast/images/"+fileName;
+            String name = fileName;
             res = new HashMap<>(2);
             res.put("url",url);
+            res.put("name",name);
             res.put("code",1);
         }catch (Exception e){
             res = new HashMap<>(2);

@@ -13,8 +13,10 @@ import io.renren.common.utils.R;
 import io.renren.modules.arct.entity.AuthorEntity;
 import io.renren.modules.arct.service.AuthorService;
 import io.renren.modules.sys.dao.SysUserTokenDao;
+import io.renren.modules.sys.entity.SysUserRoleEntity;
 import io.renren.modules.sys.entity.SysUserTokenEntity;
 import io.renren.modules.sys.oauth2.TokenGenerator;
+import io.renren.modules.sys.service.SysUserRoleService;
 import io.renren.modules.sys.service.SysUserTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,9 @@ public class SysUserTokenServiceImpl extends ServiceImpl<SysUserTokenDao, SysUse
 
 	@Autowired
 	private AuthorService authorService;
+
+	@Autowired
+	private SysUserRoleService sysUserRoleService;
 
 
 	@Override
@@ -64,8 +69,9 @@ public class SysUserTokenServiceImpl extends ServiceImpl<SysUserTokenDao, SysUse
 			this.updateById(tokenEntity);
 		}
 		AuthorEntity authorEntity = authorService.getById(userId);
+		SysUserRoleEntity sysUserRoleEntity = sysUserRoleService.getById(userId);
 
-		R r = R.ok().put("token", token).put("expire", EXPIRE).put("author", authorEntity);
+		R r = R.ok().put("token", token).put("expire", EXPIRE).put("author", authorEntity).put("role", sysUserRoleEntity);
 
 		return r;
 	}

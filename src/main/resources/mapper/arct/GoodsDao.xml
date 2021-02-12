@@ -9,6 +9,7 @@
         <result property="goodName" column="good_name"/>
         <result property="goodPrice" column="good_price"/>
         <result property="goodImg" column="good_img"/>
+        <result property="goodIntegral" column="good_integral"/>
     </resultMap>
 
 

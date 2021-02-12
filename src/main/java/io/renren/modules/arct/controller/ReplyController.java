@@ -3,6 +3,10 @@ package io.renren.modules.arct.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import io.renren.modules.arct.entity.AuthorEntity;
+import io.renren.modules.arct.entity.CommentsEntity;
+import io.renren.modules.arct.service.AuthorService;
+import io.renren.modules.arct.service.CommentsService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +34,10 @@ import io.renren.common.utils.R;
 public class ReplyController {
     @Autowired
     private ReplyService replyService;
+    @Autowired
+    private CommentsService commentsService;
+    @Autowired
+    private AuthorService authorService;
 
     /**
      * 列表
@@ -60,8 +68,21 @@ public class ReplyController {
     @RequestMapping("/save")
     @RequiresPermissions("arct:reply:save")
     public R save(@RequestBody ReplyEntity reply){
-		replyService.save(reply);
+        Long cid = reply.getCommentId();
+        CommentsEntity commentsEntity = commentsService.getById(cid);
+        commentsEntity.setIsReply("1");
+        commentsService.saveOrUpdate(commentsEntity);
 
+        Long aid = reply.getAuthorId();
+        AuthorEntity authorEntity = authorService.getById(aid);
+        String integralCount = authorEntity.getIntegralCount();
+        int tmpIntegral = Integer.parseInt(integralCount) + 10;
+        String saveIntegralCount = String.valueOf(tmpIntegral);
+        authorEntity.setIntegralCount(saveIntegralCount);
+
+
+        replyService.save(reply);
+        authorService.saveOrUpdate(authorEntity);
         return R.ok();
     }
 

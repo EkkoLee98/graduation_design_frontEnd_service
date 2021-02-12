@@ -3,6 +3,8 @@ package io.renren.modules.arct.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import io.renren.modules.arct.entity.AuthorEntity;
+import io.renren.modules.arct.service.AuthorService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +32,8 @@ import io.renren.common.utils.R;
 public class CommentsController {
     @Autowired
     private CommentsService commentsService;
+    @Autowired
+    private AuthorService authorService;
 
     /**
      * 列表
@@ -60,6 +64,13 @@ public class CommentsController {
     @RequestMapping("/save")
     @RequiresPermissions("arct:comments:save")
     public R save(@RequestBody CommentsEntity comments){
+        Long aid = comments.getAuthorId();
+        AuthorEntity authorEntity = authorService.getById(aid);
+        String integralCount = authorEntity.getIntegralCount();
+        int tmpIntegral = Integer.parseInt(integralCount) + 10;
+        String saveIntegralCount = String.valueOf(tmpIntegral);
+        authorEntity.setIntegralCount(saveIntegralCount);
+        authorService.saveOrUpdate(authorEntity);
 		commentsService.save(comments);
 
         return R.ok();

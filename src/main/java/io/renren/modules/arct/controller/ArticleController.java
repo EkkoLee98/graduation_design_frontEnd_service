@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import io.swagger.models.auth.In;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,6 +68,10 @@ public class ArticleController {
     @ApiOperation(value = "根据id查询信息")
     public R info(@PathVariable("id") Long id){
 		ArticleEntity article = articleService.getById(id);
+		int browse_count = Integer.parseInt(article.getBrowseCount());
+		String count = String.valueOf(browse_count + 1);
+		article.setBrowseCount(count);
+
 //		CommentsEntity commentsEntity = commentsService
         List<CommentsEntity> list = commentsService.list(new QueryWrapper<CommentsEntity>().eq("article_id", id));
         for (CommentsEntity entity : list) {
@@ -76,6 +81,7 @@ public class ArticleController {
             entity.setReplys(reply_comments);
         }
         List<Object> comments = new ArrayList<>(list);
+        articleService.saveOrUpdate(article);
         article.setComments(comments);
 
         return R.ok().put("article", article);

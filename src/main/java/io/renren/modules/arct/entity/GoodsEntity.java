@@ -37,5 +37,9 @@ public class GoodsEntity implements Serializable {
 	 * 
 	 */
 	private String goodImg;
+	/**
+	 *
+	 */
+	private Integer goodIntegral;
 
 }

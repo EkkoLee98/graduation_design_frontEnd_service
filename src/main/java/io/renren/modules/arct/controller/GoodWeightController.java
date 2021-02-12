@@ -1,11 +1,16 @@
 package io.renren.modules.arct.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import io.renren.modules.job.entity.ScheduleJobEntity;
+import io.renren.modules.job.utils.ScheduleUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.quartz.CronTrigger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +45,32 @@ public class GoodWeightController {
         PageUtils page = goodWeightService.queryPage(params);
 
         return R.ok().put("page", page);
+    }
+
+    /**
+     * 根据id查询信息
+     */
+    @GetMapping("/status/{id}")
+    @RequiresPermissions("arct:goodweight:info")
+    @ApiOperation(value = "更换权重")
+    public R status(@PathVariable("id") Integer id){
+        List<GoodWeightEntity> goodWeightEntities = goodWeightService.list();
+        for(GoodWeightEntity goodWeightEntity : goodWeightEntities){
+            if (!goodWeightEntity.getId().equals(id)) {
+                goodWeightEntity.setUsingStatus(0);
+            }
+        }
+        goodWeightService.saveOrUpdateBatch(goodWeightEntities);
+        GoodWeightEntity goodWeight = goodWeightService.getById(id);
+        Integer status = goodWeight.getUsingStatus();
+        if (status == 1) {
+            goodWeight.setUsingStatus(0);
+        } else {
+            goodWeight.setUsingStatus(1);
+        }
+        goodWeightService.saveOrUpdate(goodWeight);
+
+        return R.ok();
     }
 
 
