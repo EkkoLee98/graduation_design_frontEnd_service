@@ -16,6 +16,8 @@ import io.renren.common.exception.RRException;
 import io.renren.common.utils.Constant;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
+import io.renren.modules.arct.entity.AuthorEntity;
+import io.renren.modules.arct.service.AuthorService;
 import io.renren.modules.sys.dao.SysUserDao;
 import io.renren.modules.sys.entity.SysUserEntity;
 import io.renren.modules.sys.service.SysRoleService;
@@ -52,6 +54,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
     private SysRoleService sysRoleService;
     @Autowired
     private JavaMailSenderImpl mailSender;
+    @Autowired
+    private AuthorService authorService;
 
     @Override
     public void registerUser(String username, String password, String email) {
@@ -59,11 +63,21 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
         sendActiveMail(email, username);
 
         SysUserEntity user = new SysUserEntity();
+        AuthorEntity authorEntity = new AuthorEntity();
+
         user.setUsername(username);
         user.setPassword(password);
         user.setEmail(email);
         user.setStatus(0);
 
+        authorEntity.setAuthorName(username);
+        authorEntity.setStatus(1);
+        authorEntity.setAvatar("//img1.sycdn.imooc.com/5dafce1a00013fd501400140-160-160.jpg");
+        authorEntity.setFansCount("0");
+        authorEntity.setFollowCount("0");
+        authorEntity.setIntegralCount("0");
+
+        authorService.save(authorEntity);
         saveUser(user);
     }
 

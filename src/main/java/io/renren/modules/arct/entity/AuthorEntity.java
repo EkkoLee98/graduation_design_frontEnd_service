@@ -80,5 +80,9 @@ public class AuthorEntity implements Serializable {
 	 * 
 	 */
 	private String labelIds;
+	/**
+	 *
+	 */
+	private String address;
 
 }
