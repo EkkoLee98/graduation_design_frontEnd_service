@@ -77,11 +77,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
         String aidTo = String.valueOf(articleEntity.getAuthorId());
 
         if (type.equals("fan")) {
-            String count = authorEntityTo.getFansCount();
+            Long count = authorEntityTo.getFansCount();
             if (Integer.parseInt(status) == 1) {
-                int tmpCount = Integer.parseInt(count) + 1;
-                String saveCount = String.valueOf(tmpCount);
-                authorEntityTo.setFansCount(saveCount);
+//                int tmpCount = Integer.parseInt(count) + 1;
+                long tmpCount = count + 1;
+//                String saveCount = String.valueOf(tmpCount);
+                authorEntityTo.setFansCount(tmpCount);
                 String strs = authorEntity.getAuthorLikesIds();
                 ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
                 if (!list.contains(aidTo)) {
@@ -93,9 +94,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
                 authorService.saveOrUpdate(authorEntityTo);
             }
             if (Integer.parseInt(status) == 0) {
-                int tmpCount = Integer.parseInt(count) - 1;
-                String saveCount = String.valueOf(tmpCount);
-                authorEntityTo.setFansCount(saveCount);
+//                int tmpCount = Integer.parseInt(count) - 1;
+                long tmpCount = count - 1;
+//                String saveCount = String.valueOf(tmpCount);
+                authorEntityTo.setFansCount(tmpCount);
                 String strs = authorEntity.getAuthorLikesIds();
                 ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
                 list.remove(aidTo);
@@ -108,15 +110,17 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
 
 //        ArticleEntity entity = new ArticleEntity();
         if (type.equals("thumbsup")) {
-            String count = articleEntity.getThumbsUpCount();
-            String integralCount = authorEntity.getIntegralCount();
+            Long count = articleEntity.getThumbsUpCount();
+            Long integralCount = authorEntity.getIntegralCount();
             if (Integer.parseInt(status) == 1) {
-                int tmpCount = Integer.parseInt(count) + 1;
-                int tmpIntegral = Integer.parseInt(integralCount) + 10;
-                String saveCount = String.valueOf(tmpCount);
-                String saveIntegralCount = String.valueOf(tmpIntegral);
-                articleEntity.setThumbsUpCount(saveCount);
-                authorEntity.setIntegralCount(saveIntegralCount);
+//                int tmpCount = Integer.parseInt(count) + 1;
+                long tmpCount = count + 1;
+//                int tmpIntegral = Integer.parseInt(integralCount) + 10;
+                long tmpIntegral = integralCount + 10;
+//                String saveCount = String.valueOf(tmpCount);
+//                String saveIntegralCount = String.valueOf(tmpIntegral);
+                articleEntity.setThumbsUpCount(tmpCount);
+                authorEntity.setIntegralCount(tmpIntegral);
                 String strs = authorEntity.getThumpsUpArticleIds();
                 ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
                 if (!list.contains(id)) {
@@ -128,9 +132,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
                 authorService.saveOrUpdate(authorEntity);
             }
             if (Integer.parseInt(status) == 0) {
-                int tmpCount = Integer.parseInt(count) - 1;
-                String saveCount = String.valueOf(tmpCount);
-                articleEntity.setThumbsUpCount(saveCount);
+//                int tmpCount = Integer.parseInt(count) - 1;
+                long tmpCount = count - 1;
+//                String saveCount = String.valueOf(tmpCount);
+                articleEntity.setThumbsUpCount(tmpCount);
                 String strs = authorEntity.getThumpsUpArticleIds();
                 ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
                 list.remove(id);
@@ -142,15 +147,17 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
         }
 
         if (type.equals("like")) {
-            String count = articleEntity.getCollectionCount();
-            String integralCount = authorEntity.getIntegralCount();
+            Long count = articleEntity.getCollectionCount();
+            Long integralCount = authorEntity.getIntegralCount();
             if (Integer.parseInt(status) == 1) {
-                int tmpCount = Integer.parseInt(count) + 1;
-                int tmpIntegral = Integer.parseInt(integralCount) + 10;
-                String saveCount = String.valueOf(tmpCount);
-                String saveIntegralCount = String.valueOf(tmpIntegral);
-                articleEntity.setCollectionCount(saveCount);
-                authorEntity.setIntegralCount(saveIntegralCount);
+//                int tmpCount = Integer.parseInt(count) + 1;
+                long tmpCount = count + 1;
+//                int tmpIntegral = Integer.parseInt(integralCount) + 10;
+                long tmpIntegral = integralCount + 10;
+//                String saveCount = String.valueOf(tmpCount);
+//                String saveIntegralCount = String.valueOf(tmpIntegral);
+                articleEntity.setCollectionCount(tmpCount);
+                authorEntity.setIntegralCount(tmpIntegral);
                 String strs = authorEntity.getArticleLikesIds();
                 ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
                 if (!list.contains(id)) {
@@ -162,9 +169,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
                 authorService.saveOrUpdate(authorEntity);
             }
             if (Integer.parseInt(status) == 0) {
-                int tmpCount = Integer.parseInt(count) - 1;
-                String saveCount = String.valueOf(tmpCount);
-                articleEntity.setCollectionCount(saveCount);
+//                int tmpCount = Integer.parseInt(count) - 1;
+                long tmpCount = count - 1;
+//                String saveCount = String.valueOf(tmpCount);
+                articleEntity.setCollectionCount(tmpCount);
                 String strs = authorEntity.getArticleLikesIds();
                 ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
                 list.remove(id);

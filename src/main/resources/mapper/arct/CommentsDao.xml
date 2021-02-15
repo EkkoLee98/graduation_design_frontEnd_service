@@ -11,6 +11,7 @@
         <result property="isReply" column="is_reply"/>
         <result property="authorId" column="author_id"/>
         <result property="articleId" column="article_id"/>
+        <result property="rate" column="rate"/>
     </resultMap>
 
 

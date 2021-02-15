@@ -50,6 +50,10 @@ public class CommentsEntity implements Serializable {
 	/**
 	 *
 	 */
+	private Long rate;
+	/**
+	 *
+	 */
 	@TableField(exist = false)
 	private List<Object> replys;
 

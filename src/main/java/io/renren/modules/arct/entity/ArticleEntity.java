@@ -38,7 +38,7 @@ public class ArticleEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private String browseCount;
+	private Long browseCount;
 	/**
 	 * 
 	 */
@@ -51,7 +51,7 @@ public class ArticleEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private String thumbsUpCount;
+	private Long thumbsUpCount;
 	/**
 	 * 
 	 */
@@ -67,7 +67,7 @@ public class ArticleEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private String collectionCount;
+	private Long collectionCount;
 	/**
 	 * 
 	 */

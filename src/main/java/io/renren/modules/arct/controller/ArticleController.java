@@ -68,9 +68,9 @@ public class ArticleController {
     @ApiOperation(value = "根据id查询信息")
     public R info(@PathVariable("id") Long id){
 		ArticleEntity article = articleService.getById(id);
-		int browse_count = Integer.parseInt(article.getBrowseCount());
-		String count = String.valueOf(browse_count + 1);
-		article.setBrowseCount(count);
+		long browse_count = article.getBrowseCount() + 1;
+//		long count = browse_count + 1;
+		article.setBrowseCount(browse_count);
 
 //		CommentsEntity commentsEntity = commentsService
         List<CommentsEntity> list = commentsService.list(new QueryWrapper<CommentsEntity>().eq("article_id", id));

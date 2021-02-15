@@ -73,9 +73,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
         authorEntity.setAuthorName(username);
         authorEntity.setStatus(1);
         authorEntity.setAvatar("//img1.sycdn.imooc.com/5dafce1a00013fd501400140-160-160.jpg");
-        authorEntity.setFansCount("0");
-        authorEntity.setFollowCount("0");
-        authorEntity.setIntegralCount("0");
+        authorEntity.setFansCount(0L);
+        authorEntity.setFollowCount(0L);
+        authorEntity.setIntegralCount(0L);
 
         authorService.save(authorEntity);
         saveUser(user);

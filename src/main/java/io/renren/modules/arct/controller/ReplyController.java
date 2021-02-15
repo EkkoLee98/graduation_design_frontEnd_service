@@ -75,10 +75,10 @@ public class ReplyController {
 
         Long aid = reply.getAuthorId();
         AuthorEntity authorEntity = authorService.getById(aid);
-        String integralCount = authorEntity.getIntegralCount();
-        int tmpIntegral = Integer.parseInt(integralCount) + 10;
-        String saveIntegralCount = String.valueOf(tmpIntegral);
-        authorEntity.setIntegralCount(saveIntegralCount);
+        Long integralCount = authorEntity.getIntegralCount();
+        long tmpIntegral = integralCount + 10;
+//        String saveIntegralCount = String.valueOf(tmpIntegral);
+        authorEntity.setIntegralCount(tmpIntegral);
 
 
         replyService.save(reply);

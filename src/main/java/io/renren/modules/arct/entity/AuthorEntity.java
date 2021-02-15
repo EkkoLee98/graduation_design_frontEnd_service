@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import io.swagger.models.auth.In;
 import lombok.Data;
 
 /**
@@ -55,11 +57,11 @@ public class AuthorEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private String fansCount;
+	private Long fansCount;
 	/**
 	 * 
 	 */
-	private String followCount;
+	private Long followCount;
 	/**
 	 * 
 	 */
@@ -67,7 +69,7 @@ public class AuthorEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private String integralCount;
+	private Long integralCount;
 	/**
 	 * 
 	 */

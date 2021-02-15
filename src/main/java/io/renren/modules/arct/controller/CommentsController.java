@@ -66,10 +66,10 @@ public class CommentsController {
     public R save(@RequestBody CommentsEntity comments){
         Long aid = comments.getAuthorId();
         AuthorEntity authorEntity = authorService.getById(aid);
-        String integralCount = authorEntity.getIntegralCount();
-        int tmpIntegral = Integer.parseInt(integralCount) + 10;
-        String saveIntegralCount = String.valueOf(tmpIntegral);
-        authorEntity.setIntegralCount(saveIntegralCount);
+        Long integralCount = authorEntity.getIntegralCount();
+        long tmpIntegral = integralCount + 10;
+//        String saveIntegralCount = String.valueOf(tmpIntegral);
+        authorEntity.setIntegralCount(tmpIntegral);
         authorService.saveOrUpdate(authorEntity);
 		commentsService.save(comments);
 
