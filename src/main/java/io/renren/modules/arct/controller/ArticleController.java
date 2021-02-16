@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import io.renren.modules.arct.entity.AuthorEntity;
+import io.renren.modules.arct.service.AuthorService;
 import io.swagger.models.auth.In;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +48,8 @@ public class ArticleController {
     private CommentsService commentsService;
     @Autowired
     private ReplyService replyService;
+    @Autowired
+    private AuthorService authorService;
 
     /**
      * 列表
@@ -57,6 +61,27 @@ public class ArticleController {
         PageUtils page = articleService.queryPage(params);
 
         return R.ok().put("page", page);
+    }
+
+
+    /**
+     * 喜欢的文章列表
+     */
+    @PostMapping("/list/like")
+    @RequiresPermissions("arct:article:list")
+    public R like_list(HttpServletRequest request) {
+
+        return R.ok().put("articles", articleService.selectLikeList(request));
+    }
+
+    /**
+     * 我的文章列表
+     */
+    @PostMapping("/list/my")
+    @RequiresPermissions("arct:article:list")
+    public R my_list(HttpServletRequest request) {
+
+        return R.ok().put("articles", articleService.selectMyList(request));
     }
 
 
@@ -76,9 +101,17 @@ public class ArticleController {
         List<CommentsEntity> list = commentsService.list(new QueryWrapper<CommentsEntity>().eq("article_id", id));
         for (CommentsEntity entity : list) {
             Long cid = entity.getId();
+            AuthorEntity authorEntity = authorService.getById(entity.getAuthorId());
+
             List<ReplyEntity> reply_list = replyService.list(new QueryWrapper<ReplyEntity>().eq("comment_id", cid));
+            for (ReplyEntity replyEntity : reply_list) {
+                AuthorEntity authorEntity_r = authorService.getById(replyEntity.getAuthorId());
+                replyEntity.setAuthor(authorEntity_r);
+            }
             List<Object> reply_comments = new ArrayList<>(reply_list);
+
             entity.setReplys(reply_comments);
+            entity.setAuthor(authorEntity);
         }
         List<Object> comments = new ArrayList<>(list);
         articleService.saveOrUpdate(article);

@@ -5,6 +5,7 @@ import io.renren.common.utils.PageUtils;
 import io.renren.modules.arct.entity.ArticleEntity;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,5 +20,9 @@ public interface ArticleService extends IService<ArticleEntity> {
     PageUtils queryPage(Map<String, Object> params);
 
     void saveOption(HttpServletRequest request);
+
+    List<ArticleEntity> selectLikeList(HttpServletRequest request);
+
+    List<ArticleEntity> selectMyList(HttpServletRequest request);
 }
 

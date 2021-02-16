@@ -1,10 +1,7 @@
 package io.renren.modules.arct.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-
 import io.renren.common.xss.XssHttpServletRequestWrapper;
 import io.renren.modules.arct.entity.AuthorEntity;
-import io.renren.modules.arct.entity.ClassifyEntity;
 import io.renren.modules.arct.service.AuthorService;
 
 import org.apache.commons.lang.StringUtils;
@@ -61,6 +58,48 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
 
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<ArticleEntity> selectLikeList(HttpServletRequest request) {
+        HttpServletRequest orgRequest = XssHttpServletRequestWrapper.getOrgRequest(request);
+
+        String id_list = orgRequest.getParameter("articleIds");
+        String[] ids = id_list.split(",");
+        List<ArticleEntity> like_list = new ArrayList<>();
+
+        for (String id : ids) {
+            Long aid = new Long(id);
+            QueryWrapper<ArticleEntity> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("id", aid);
+
+            ArticleEntity articleEntity = baseMapper.selectOne(queryWrapper);
+            like_list.add(articleEntity);
+        }
+
+        return like_list;
+
+    }
+
+    @Override
+    public List<ArticleEntity> selectMyList(HttpServletRequest request) {
+        HttpServletRequest orgRequest = XssHttpServletRequestWrapper.getOrgRequest(request);
+
+        String id_list = orgRequest.getParameter("articleIds");
+        String[] ids = id_list.split(",");
+        List<ArticleEntity> like_list = new ArrayList<>();
+
+        for (String id : ids) {
+            Long aid = new Long(id);
+            QueryWrapper<ArticleEntity> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("id", aid);
+
+            ArticleEntity articleEntity = baseMapper.selectOne(queryWrapper);
+            like_list.add(articleEntity);
+        }
+
+        return like_list;
+
     }
 
     @Override

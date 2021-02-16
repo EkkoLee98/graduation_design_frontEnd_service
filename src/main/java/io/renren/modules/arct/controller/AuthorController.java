@@ -14,6 +14,7 @@ import io.renren.modules.arct.service.AuthorService;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -40,6 +41,16 @@ public class AuthorController {
         PageUtils page = authorService.queryPage(params);
 
         return R.ok().put("page", page);
+    }
+
+    /**
+     * 喜欢的文章列表
+     */
+    @PostMapping("/list/like")
+    @RequiresPermissions("arct:article:list")
+    public R like_list(HttpServletRequest request) {
+
+        return R.ok().put("authors", authorService.selectLikeList(request));
     }
 
 

@@ -1,5 +1,6 @@
 package io.renren.modules.arct.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -48,5 +49,10 @@ public class ReplyEntity implements Serializable {
 	 * 
 	 */
 	private Long commentId;
+	/**
+	 *
+	 */
+	@TableField(exist = false)
+	private AuthorEntity author;
 
 }
