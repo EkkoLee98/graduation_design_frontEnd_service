@@ -41,5 +41,9 @@ public class GoodsEntity implements Serializable {
 	 *
 	 */
 	private Long goodIntegral;
+	/**
+	 *
+	 */
+	private String goodClassify;
 
 }

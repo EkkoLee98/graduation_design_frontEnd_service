@@ -38,11 +38,18 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
     public PageUtils queryPage(Map<String, Object> params) {
 
         String classify = (String)params.get("classify");
+        String search = (String)params.get("search");
 
 //        QueryWrapper<ArticleEntity> queryWrapper = new QueryWrapper<>();
 //        if (Query.STATUS_ACTIVED.equals(params.get(Query.STATUS))) {
 //            queryWrapper.eq("status", 1);
 //        }
+
+        // 增加商品类型筛选
+//        if (params.containsKey("commodityType")) {
+//            queryWrapper.eq("commodity_type", params.get("commodityType"));
+//        }
+
 //
 //        IPage<ArticleEntity> page = this.page(
 //                new Query<ArticleEntity>().getPage(params),
@@ -54,6 +61,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
                 new Query<ArticleEntity>().getPage(params),
                 new QueryWrapper<ArticleEntity>()
                         .like(StringUtils.isNotBlank(classify),"classify", classify)
+                        .like(StringUtils.isNotBlank(search),"title", search)
         );
 
 
@@ -65,6 +73,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
         HttpServletRequest orgRequest = XssHttpServletRequestWrapper.getOrgRequest(request);
 
         String id_list = orgRequest.getParameter("articleIds");
+        logger.debug("==========");
+        logger.debug(id_list);
+        logger.debug("==========");
         String[] ids = id_list.split(",");
         List<ArticleEntity> like_list = new ArrayList<>();
 
@@ -111,6 +122,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
         String type = orgRequest.getParameter("type");
         String status = orgRequest.getParameter("status");
         ArticleEntity articleEntity = articleService.getById(id);
+        logger.debug("==============");
+        logger.debug(id);
+        logger.debug(articleEntity.toString());
+        logger.debug("==============");
         AuthorEntity authorEntity = authorService.getById(aid);
         AuthorEntity authorEntityTo = authorService.getById(articleEntity.getAuthorId());
         String aidTo = String.valueOf(articleEntity.getAuthorId());

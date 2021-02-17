@@ -10,6 +10,7 @@
         <result property="goodPrice" column="good_price"/>
         <result property="goodImg" column="good_img"/>
         <result property="goodIntegral" column="good_integral"/>
+        <result property="goodClassify" column="good_classify"/>
     </resultMap>
 
 

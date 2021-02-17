@@ -8,6 +8,7 @@ import java.util.Map;
 import io.renren.modules.arct.entity.AuthorEntity;
 import io.renren.modules.arct.service.AuthorService;
 import io.swagger.models.auth.In;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -127,6 +128,19 @@ public class ArticleController {
     @RequiresPermissions("arct:article:save")
     @ApiOperation(value = "新增记录")
     public R save(@RequestBody ArticleEntity article){
+        List<ArticleEntity> lists = articleService.list();
+
+        Long id = lists.get(lists.size() - 1).getId() + 1;
+        Long aid = article.getAuthorId();
+
+        AuthorEntity authorEntity = authorService.getById(aid);
+        String articleIds = authorEntity.getArticleIds();
+        ArrayList<String> list = new ArrayList<String>(Arrays.asList(articleIds.split(",")));
+        list.add(id.toString());
+        String list_str = StringUtils.join(list,",");
+        authorEntity.setArticleIds(list_str);
+        authorService.saveOrUpdate(authorEntity);
+
 		articleService.save(article);
 
         return R.ok();

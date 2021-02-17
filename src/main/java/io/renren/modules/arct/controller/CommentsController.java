@@ -7,11 +7,7 @@ import io.renren.modules.arct.entity.AuthorEntity;
 import io.renren.modules.arct.service.AuthorService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.renren.modules.arct.entity.CommentsEntity;
 import io.renren.modules.arct.service.CommentsService;
@@ -61,7 +57,7 @@ public class CommentsController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     @RequiresPermissions("arct:comments:save")
     public R save(@RequestBody CommentsEntity comments){
         Long aid = comments.getAuthorId();
@@ -79,7 +75,7 @@ public class CommentsController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     @RequiresPermissions("arct:comments:update")
     public R update(@RequestBody CommentsEntity comments){
 		commentsService.updateById(comments);

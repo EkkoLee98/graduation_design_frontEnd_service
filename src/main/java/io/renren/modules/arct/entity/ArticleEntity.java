@@ -55,6 +55,7 @@ public class ArticleEntity implements Serializable {
 	/**
 	 * 
 	 */
+	@NotBlank(message="标题不能为空")
 	private String title;
 	/**
 	 * 
