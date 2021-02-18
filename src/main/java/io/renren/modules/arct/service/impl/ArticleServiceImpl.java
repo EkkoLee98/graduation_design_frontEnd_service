@@ -143,8 +143,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
                     list.add(aidTo);
                 }
                 String list_str = StringUtils.join(list,",");
-                authorEntity.setAuthorLikesIds(list_str);
-                authorService.saveOrUpdate(authorEntity);
+                if (aid.equals(aidTo)) {
+                    authorEntityTo.setAuthorLikesIds(list_str);
+                } else {
+                    authorEntity.setAuthorLikesIds(list_str);
+                    authorService.saveOrUpdate(authorEntity);
+                }
                 authorService.saveOrUpdate(authorEntityTo);
             }
             if (Integer.parseInt(status) == 0) {
@@ -156,8 +160,18 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
                 ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
                 list.remove(aidTo);
                 String list_str = StringUtils.join(list,",");
-                authorEntity.setAuthorLikesIds(list_str);
-                authorService.saveOrUpdate(authorEntity);
+                if (aid.equals(aidTo)) {
+                    logger.debug("+++++++++");
+                    logger.debug("111");
+                    logger.debug("+++++++++");
+                    authorEntityTo.setAuthorLikesIds(list_str);
+                } else {
+                    logger.debug("+++++++++");
+                    logger.debug("222");
+                    logger.debug("+++++++++");
+                    authorEntity.setAuthorLikesIds(list_str);
+                    authorService.saveOrUpdate(authorEntity);
+                }
                 authorService.saveOrUpdate(authorEntityTo);
             }
         }
