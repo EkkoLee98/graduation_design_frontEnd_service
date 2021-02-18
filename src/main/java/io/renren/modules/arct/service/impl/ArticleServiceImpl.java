@@ -56,12 +56,22 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
 ////                new QueryWrapper<ArticleEntity>()
 //                queryWrapper
 //        );
-
+        QueryWrapper<ArticleEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like(StringUtils.isNotBlank(classify),"classify", classify)
+                    .like(StringUtils.isNotBlank(search),"title", search);
+        if (params.get("role") == null) {
+            if (params.get("authorId") != null) {
+                Long aid = Long.parseLong((String) params.get("authorId"));
+                queryWrapper.eq("author_id", aid);
+            }
+        }
         IPage<ArticleEntity> page = this.page(
                 new Query<ArticleEntity>().getPage(params),
-                new QueryWrapper<ArticleEntity>()
-                        .like(StringUtils.isNotBlank(classify),"classify", classify)
-                        .like(StringUtils.isNotBlank(search),"title", search)
+                queryWrapper
+//                new QueryWrapper<ArticleEntity>()
+//                        .like(StringUtils.isNotBlank(classify),"classify", classify)
+//                        .like(StringUtils.isNotBlank(search),"title", search)
+//                        .eq()
         );
 
 
@@ -161,14 +171,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
                 list.remove(aidTo);
                 String list_str = StringUtils.join(list,",");
                 if (aid.equals(aidTo)) {
-                    logger.debug("+++++++++");
-                    logger.debug("111");
-                    logger.debug("+++++++++");
                     authorEntityTo.setAuthorLikesIds(list_str);
                 } else {
-                    logger.debug("+++++++++");
-                    logger.debug("222");
-                    logger.debug("+++++++++");
                     authorEntity.setAuthorLikesIds(list_str);
                     authorService.saveOrUpdate(authorEntity);
                 }
