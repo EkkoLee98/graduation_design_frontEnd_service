@@ -55,7 +55,8 @@ public class CommentsEntity implements Serializable {
 	 *
 	 */
 	@TableField(exist = false)
-	private List<Object> replys;
+	private List<ReplyEntity> replys;
+//	private List<Object> replys;
 	/**
 	 *
 	 */

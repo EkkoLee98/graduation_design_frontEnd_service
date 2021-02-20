@@ -109,9 +109,10 @@ public class ArticleController {
                 AuthorEntity authorEntity_r = authorService.getById(replyEntity.getAuthorId());
                 replyEntity.setAuthor(authorEntity_r);
             }
-            List<Object> reply_comments = new ArrayList<>(reply_list);
+//            List<Object> reply_comments = new ArrayList<>(reply_list);
 
-            entity.setReplys(reply_comments);
+//            entity.setReplys(reply_comments);
+            entity.setReplys(reply_list);
             entity.setAuthor(authorEntity);
         }
         List<Object> comments = new ArrayList<>(list);
