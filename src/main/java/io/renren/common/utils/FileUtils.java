@@ -51,7 +51,14 @@ public class FileUtils {
 
              File savefile = new File(savePath+filename);
 
+             if (!savefile.getParentFile().exists()) {
+                 savefile.getParentFile().mkdir();
+             }
+
              try {
+                 System.out.println("==========================");
+                 System.out.println(savefile);
+                 System.out.println("==========================");
                  //保存文件
                  file.transferTo(savefile);
              } catch (IOException e) {

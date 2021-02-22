@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 验证码
@@ -33,6 +34,8 @@ import java.util.Date;
 public class SysCaptchaServiceImpl extends ServiceImpl<SysCaptchaDao, SysCaptchaEntity> implements SysCaptchaService {
     @Autowired
     private Producer producer;
+    @Autowired
+    private SysCaptchaService sysCaptchaService;
 
     @Override
     public BufferedImage getCaptcha(String uuid) {
@@ -47,7 +50,11 @@ public class SysCaptchaServiceImpl extends ServiceImpl<SysCaptchaDao, SysCaptcha
         captchaEntity.setCode(code);
         //5分钟后过期
         captchaEntity.setExpireTime(DateUtils.addDateMinutes(new Date(), 5));
-        this.save(captchaEntity);
+        SysCaptchaEntity captchaEntityTmp = this.getOne(new QueryWrapper<SysCaptchaEntity>().eq("uuid", uuid));
+
+        if (captchaEntityTmp == null) {
+            this.save(captchaEntity);
+        }
 
         return producer.createImage(code);
     }

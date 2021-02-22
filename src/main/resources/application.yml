@@ -4,7 +4,12 @@ server:
     uri-encoding: UTF-8
     max-threads: 1000
     min-spare-threads: 30
-  port: 8080
+  port: 443
+#  port: 8080
+  ssl:
+    key-store: classpath:lzebaba.club.jks
+    key-store-password: rcy07893dh3030
+    key-store-type: JKS
   connection-timeout: 5000ms
   servlet:
     context-path: /renren-fast
@@ -75,4 +80,5 @@ renren:
     expire: 604800
     header: token
 
-uploadimgpath: C:\Demo\bs\graduation_design_service\src\main\resources\static\images\
+uploadimgpath: /home/zhengen/graduation_design/images/
+#uploadimgpath: C:\Demo\bs\graduation_design_service\src\main\resources\static\images\
