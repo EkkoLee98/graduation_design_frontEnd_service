@@ -20,6 +20,7 @@ import io.renren.modules.arct.entity.AuthorEntity;
 import io.renren.modules.arct.service.AuthorService;
 import io.renren.modules.sys.dao.SysUserDao;
 import io.renren.modules.sys.entity.SysUserEntity;
+import io.renren.modules.sys.entity.SysUserRoleEntity;
 import io.renren.modules.sys.service.SysRoleService;
 import io.renren.modules.sys.service.SysUserRoleService;
 import io.renren.modules.sys.service.SysUserService;
@@ -56,6 +57,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
     private JavaMailSenderImpl mailSender;
     @Autowired
     private AuthorService authorService;
+    @Autowired
+    private SysUserService sysUserService;
 
     @Override
     public void registerUser(String username, String password, String email) {
@@ -70,6 +73,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
         user.setEmail(email);
         user.setStatus(0);
 
+        long currentUser = sysUserService.list().toArray().length + 1;
+        SysUserRoleEntity sysUserRoleEntity = new SysUserRoleEntity();
+        sysUserRoleEntity.setUserId(currentUser);
+        sysUserRoleEntity.setRoleId(2L);
+
         authorEntity.setAuthorName(username);
         authorEntity.setStatus(1);
         authorEntity.setAvatar("//img1.sycdn.imooc.com/5dafce1a00013fd501400140-160-160.jpg");
@@ -79,6 +87,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 
         authorService.save(authorEntity);
         saveUser(user);
+        sysUserRoleService.save(sysUserRoleEntity);
     }
 
     @Override
@@ -202,7 +211,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 
             messageHelper.setSubject("注册激活");
 
-            messageHelper.setText("<a href = 'http://localhost:8080/renren-fast/sys/user/active/" + username + "'>点击完成用户注册</a>", true);
+            messageHelper.setText("<a href = 'https://159.75.101.5/renren-fast/sys/user/active/" + username + "'>点击完成用户注册</a>", true);
 
         } catch (MessagingException e) {
             e.printStackTrace();

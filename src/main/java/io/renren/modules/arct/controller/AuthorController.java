@@ -47,7 +47,7 @@ public class AuthorController {
      * 喜欢的文章列表
      */
     @PostMapping("/list/like")
-    @RequiresPermissions("arct:article:list")
+    @RequiresPermissions("arct:author:list")
     public R like_list(HttpServletRequest request) {
 
         return R.ok().put("authors", authorService.selectLikeList(request));

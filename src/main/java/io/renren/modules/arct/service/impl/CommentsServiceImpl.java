@@ -18,9 +18,11 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsDao, CommentsEntity
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+        String authorId = (String)params.get("authorId");
         IPage<CommentsEntity> page = this.page(
                 new Query<CommentsEntity>().getPage(params),
                 new QueryWrapper<CommentsEntity>()
+                        .eq("author_id", new Long(authorId))
         );
 
         return new PageUtils(page);

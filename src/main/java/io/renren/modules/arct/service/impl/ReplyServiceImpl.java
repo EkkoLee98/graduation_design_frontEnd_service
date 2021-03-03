@@ -18,9 +18,11 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyDao, ReplyEntity> impleme
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+        String authorId = (String)params.get("authorId");
         IPage<ReplyEntity> page = this.page(
                 new Query<ReplyEntity>().getPage(params),
                 new QueryWrapper<ReplyEntity>()
+                        .eq("author_id", new Long(authorId))
         );
 
         return new PageUtils(page);

@@ -18,9 +18,11 @@ public class IntegralOrderServiceImpl extends ServiceImpl<IntegralOrderDao, Inte
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+        String authorId = (String)params.get("authorId");
         IPage<IntegralOrderEntity> page = this.page(
                 new Query<IntegralOrderEntity>().getPage(params),
                 new QueryWrapper<IntegralOrderEntity>()
+                        .eq("author_id", new Long(authorId))
         );
 
         return new PageUtils(page);

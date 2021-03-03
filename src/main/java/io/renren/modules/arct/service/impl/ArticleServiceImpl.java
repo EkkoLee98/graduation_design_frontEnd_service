@@ -148,7 +148,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
 //                String saveCount = String.valueOf(tmpCount);
                 authorEntityTo.setFansCount(tmpCount);
                 String strs = authorEntity.getAuthorLikesIds();
-                ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
+                ArrayList<String> list = (strs == null || strs.equals("")) ? new ArrayList<String>() : new ArrayList<String>(Arrays.asList(strs.split(",")));
                 if (!list.contains(aidTo)) {
                     list.add(aidTo);
                 }
@@ -167,7 +167,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
 //                String saveCount = String.valueOf(tmpCount);
                 authorEntityTo.setFansCount(tmpCount);
                 String strs = authorEntity.getAuthorLikesIds();
-                ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
+                ArrayList<String> list = (strs == null || strs.equals("")) ? new ArrayList<String>() : new ArrayList<String>(Arrays.asList(strs.split(",")));
+//                ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
                 list.remove(aidTo);
                 String list_str = StringUtils.join(list,",");
                 if (aid.equals(aidTo)) {
@@ -194,7 +195,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
                 articleEntity.setThumbsUpCount(tmpCount);
                 authorEntity.setIntegralCount(tmpIntegral);
                 String strs = authorEntity.getThumpsUpArticleIds();
-                ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
+                ArrayList<String> list = (strs == null || strs.equals("")) ? new ArrayList<String>() : new ArrayList<String>(Arrays.asList(strs.split(",")));
+//                ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
                 if (!list.contains(id)) {
                     list.add(id);
                 }
@@ -209,7 +211,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
 //                String saveCount = String.valueOf(tmpCount);
                 articleEntity.setThumbsUpCount(tmpCount);
                 String strs = authorEntity.getThumpsUpArticleIds();
-                ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
+                ArrayList<String> list = (strs == null || strs.equals("")) ? new ArrayList<String>() : new ArrayList<String>(Arrays.asList(strs.split(",")));
+//                ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
                 list.remove(id);
                 String list_str = StringUtils.join(list,",");
                 authorEntity.setThumpsUpArticleIds(list_str);
@@ -231,7 +234,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
                 articleEntity.setCollectionCount(tmpCount);
                 authorEntity.setIntegralCount(tmpIntegral);
                 String strs = authorEntity.getArticleLikesIds();
-                ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
+                ArrayList<String> list = (strs == null || strs.equals("")) ? new ArrayList<String>() : new ArrayList<String>(Arrays.asList(strs.split(",")));
+//                ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
                 if (!list.contains(id)) {
                     list.add(id);
                 }
@@ -246,7 +250,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
 //                String saveCount = String.valueOf(tmpCount);
                 articleEntity.setCollectionCount(tmpCount);
                 String strs = authorEntity.getArticleLikesIds();
-                ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
+                ArrayList<String> list = (strs == null || strs.equals("")) ? new ArrayList<String>() : new ArrayList<String>(Arrays.asList(strs.split(",")));
+//                ArrayList<String> list = new ArrayList<String>(Arrays.asList(strs.split(",")));
                 list.remove(id);
                 String list_str = StringUtils.join(list,",");
                 authorEntity.setArticleLikesIds(list_str);

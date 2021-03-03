@@ -136,12 +136,28 @@ public class ArticleController {
 
         AuthorEntity authorEntity = authorService.getById(aid);
         String articleIds = authorEntity.getArticleIds();
-        ArrayList<String> list = new ArrayList<String>(Arrays.asList(articleIds.split(",")));
+//        if (articleIds == null || articleIds.equals("")) {
+//            ArrayList<String> list = new ArrayList<String>();
+//            list.add(id.toString());
+//            String list_str = StringUtils.join(list,",");
+//            authorEntity.setArticleIds(list_str);
+//            authorService.saveOrUpdate(authorEntity);
+//        } else {
+//            ArrayList<String> list = new ArrayList<String>(Arrays.asList(articleIds.split(",")));
+//            list.add(id.toString());
+//            String list_str = StringUtils.join(list,",");
+//            authorEntity.setArticleIds(list_str);
+//            authorService.saveOrUpdate(authorEntity);
+//        }
+        ArrayList<String> list = (articleIds == null || articleIds.equals("")) ? new ArrayList<String>() : new ArrayList<String>(Arrays.asList(articleIds.split(",")));
         list.add(id.toString());
         String list_str = StringUtils.join(list,",");
         authorEntity.setArticleIds(list_str);
+        Long integralCount = authorEntity.getIntegralCount();
+        long tmpIntegral = integralCount + 10;
+//        String saveIntegralCount = String.valueOf(tmpIntegral);
+        authorEntity.setIntegralCount(tmpIntegral);
         authorService.saveOrUpdate(authorEntity);
-
 		articleService.save(article);
 
         return R.ok();
